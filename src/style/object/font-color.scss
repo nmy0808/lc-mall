@@ -1,0 +1,17 @@
+@each $style in (
+  A $fontA, 
+  B $fontB, 
+  C $fontC, 
+  D $fontD,
+  E $fontE, 
+  F $fontF, 
+  G $fontG, 
+  H $fontH,
+  I $fontI, 
+  J $fontJ, 
+  K $fontK, 
+  ) {
+  [font-#{nth($style, 1)}] {
+    color: #{nth($style, 2)};
+  }
+}

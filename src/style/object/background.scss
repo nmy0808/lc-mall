@@ -1,0 +1,23 @@
+@each $i in 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 {
+  [bga#{$i * 10}] { 
+    background-color: rgba(0, 0, 0, $i);
+  }
+}
+
+@each $style in (
+  A $colorA, 
+  B $colorB, 
+  C $colorC,
+  D $colorD,
+  E $colorE,
+  F $colorF,
+  G $colorG,
+  H $colorH,
+  I $colorI,
+  J $colorJ,
+  K $colorK,
+  ) {
+  [bg-#{nth($style, 1)}] {
+    background-color: #{nth($style, 2)};
+  }
+}
