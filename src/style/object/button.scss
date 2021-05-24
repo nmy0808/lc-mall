@@ -1,0 +1,32 @@
+[btn-small]{
+  @include dimensions(110px,30px);
+  background: $colorA;
+  color: white;
+  @include box-center();
+  font-weight: normal;
+  font-size: 12px;
+  cursor: pointer;
+}
+[btn-normal]{
+  @include dimensions(110px,30px);
+  background: $colorA;
+  color: white;
+  @include box-center();
+  font-weight: normal;
+  font-size: 12px;
+  cursor: pointer;
+}
+[btn-big]{
+  @include dimensions(202px,50px);
+  background: $colorA;
+  color: white;
+  @include box-center();
+  font-weight: normal;
+  font-size: 18px;
+  cursor: pointer;
+}
+[btn-cancel]{
+  background: $colorD;
+  color: white;
+  cursor: pointer;
+}

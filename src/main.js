@@ -4,9 +4,10 @@ import store from './store'
 // import Storage from '@/storage'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyload from 'vue-lazyload'
 import '@/mock'
 import '../src/style/index.scss'
-import '@/components/layout/index.js'
+import '@/components/index.js'
 import App from './App.vue'
 // axios.defaults.baseURL = '/api';
 
@@ -23,6 +24,9 @@ axios.interceptors.response.use(response => {
   }
 })
 Vue.use(VueAxios, axios);
+Vue.use(VueLazyload, {
+  loading: '/imgs/loading-svg/loading-bars.svg'
+});
 axios.get('/aaa').then(res => console.log(res))
 
 new Vue({

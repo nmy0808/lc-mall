@@ -5,17 +5,17 @@
 }
 
 @each $style in (
-  A $colorA, 
-  B $colorB, 
-  C $colorC,
-  D $colorD,
-  E $colorE,
-  F $colorF,
-  G $colorG,
-  H $colorH,
-  I $colorI,
-  J $colorJ,
-  K $colorK,
+  a $colorA, 
+  b $colorB, 
+  c $colorC,
+  d $colorD,
+  r $colorE,
+  f $colorF,
+  g $colorG,
+  h $colorH,
+  i $colorI,
+  j $colorJ,
+  k $colorK,
   ) {
   [bg-#{nth($style, 1)}] {
     background-color: #{nth($style, 2)};
