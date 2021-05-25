@@ -5,11 +5,13 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyload from 'vue-lazyload'
-import '@/mock'
+import VueCookie from 'vue-cookie'
+// import '@/mock'
 import '../src/style/index.scss'
 import '@/components/index.js'
+import '@/eventBus';
 import App from './App.vue'
-// axios.defaults.baseURL = '/api';
+axios.defaults.baseURL = '/api';
 
 axios.defaults.timeout = 7000;
 axios.interceptors.response.use(response => {
@@ -18,16 +20,17 @@ axios.interceptors.response.use(response => {
     return res.data;
   }
   else if (res.status == 10) {
-    router.push({ name: 'login' });
+    router.push({ name: 'login' }).catch(() => { });
   } else {
     alert(res.msg);
+    return Promise.reject(res.msg);
   }
 })
 Vue.use(VueAxios, axios);
+Vue.use(VueCookie);
 Vue.use(VueLazyload, {
   loading: '/imgs/loading-svg/loading-bars.svg'
 });
-axios.get('/aaa').then(res => console.log(res))
 
 new Vue({
   router,

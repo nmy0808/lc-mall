@@ -1,8 +1,7 @@
 <script>
 export default {
   name: "c-container",
-  render: (h,ctx) => {
-    console.log(ctx);
+  render: (h) => {
     return h("div", { class: ["container"] }, this.$slots.default);
   },
 };

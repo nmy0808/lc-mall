@@ -98,7 +98,6 @@ export default {
             horizontal = 'c-box--around';
             break;
         }
-        console.log(border);
         return [vertical, horizontal, border, wrap];
       }
       return ['c-box--center', border, wrap];
