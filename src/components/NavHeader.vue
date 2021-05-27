@@ -17,13 +17,18 @@
           <router-link to="">协议规则</router-link>
         </div>
         <div class="nav-header__topbar-right" h-100 display-flex align-center>
-          <router-link to="">admin</router-link>
-          <router-link :to="{ name: 'login' }">登录</router-link>
+          <router-link to="">{{ userName }}</router-link>
+          <router-link v-if="!userName" :to="{ name: 'login' }"
+            >登录</router-link
+          >
+          <div v-if="userName" class="login-out" href="javascript:;" @click="loginOut">
+            退出
+          </div>
           <router-link to="">我的订单</router-link>
           <router-link to="">
             <div btn-normal class="nav-header__icon" h-100>
               <c-img-icon src="/imgs/icon-cart-checked.png" mr5></c-img-icon>
-              购物车(3)
+              购物车{{cartCount}}
             </div>
           </router-link>
         </div>
@@ -95,12 +100,16 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
   name: "nav-header",
   data() {
     return {
       phoneList: [],
     };
+  },
+  computed: {
+    ...mapState(["userName", "cartCount"]),
   },
   mounted() {
     this.axios
@@ -113,6 +122,9 @@ export default {
       .then((res) => {
         this.phoneList = res.list.slice(6, 12);
       });
+  },
+  methods: {
+    ...mapActions(["loginOut"]),
   },
   filters: {
     currency: function (value = 0) {
@@ -127,11 +139,13 @@ export default {
 @include b(nav-header) {
   @include e(topbar) {
     height: 39px;
-    a {
+    a,
+    .login-out {
       line-height: 39px;
       margin-right: 17px;
       color: $colorD;
       display: inline-block;
+      cursor: pointer;
       &:last-child {
         margin-right: 0;
       }

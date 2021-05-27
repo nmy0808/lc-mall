@@ -4,22 +4,14 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   mounted() {
     this.getUserInfo();
     this.getCartCount();
   },
   methods: {
-    getUserInfo() {
-      this.axios.get("/user").then((res) => {
-        console.log(res);
-      });
-    },
-    getCartCount() {
-      this.axios.get("/carts/products/sum").then((res) => {
-        console.log(res);
-      });
-    },
+    ...mapActions(["getCartCount", "getUserInfo"]),
   },
 };
 </script>

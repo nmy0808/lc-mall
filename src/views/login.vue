@@ -3,34 +3,23 @@
     <input type="text" placeholder="用户名" v-model="username" />
     <input type="text" placeholder="密码" v-model="password" />
     <div btn-big @click="handleLogin">登录</div>
-    <div btn-big @click="handleLoginOut">退出登录</div>
+    <div btn-big @click="loginOut">退出登录</div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      username: null,
-      password: null,
+      username: '',
+      password: '',
     };
   },
   methods: {
+    ...mapActions(["login", "loginOut"]),
     handleLogin() {
-      const { username, password } = this;
-      this.axios
-        .post("/user/login", {
-          username,
-          password,
-        })
-        .then((res) => {
-          this.$cookie.set("userId", res.id, { expires: "1D" });
-          this.$router.push({ name: "home" });
-        });
-    },
-    handleLoginOut() {
-      this.$cookie.delete("userId");
-      this.axios.post("/user/logout");
+      this.login({ username: this.username, password: this.password });
     },
   },
 };

@@ -20,8 +20,9 @@ const routes = [
         component: Index,
       },
       {
-        path: 'detail',
+        path: 'detail/:id',
         name: 'detail',
+        props: true,
         component: () => import('@/views/detail.vue'),
       },
       {

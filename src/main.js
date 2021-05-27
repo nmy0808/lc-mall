@@ -16,11 +16,14 @@ axios.defaults.baseURL = '/api';
 axios.defaults.timeout = 7000;
 axios.interceptors.response.use(response => {
   const res = response.data;
+  const path = location.pathname;
   if (res.status == 0) {
     return res.data;
   }
   else if (res.status == 10) {
-    router.push({ name: 'login' }).catch(() => { });
+    if (path !== '/index') {
+      router.push({ name: 'login' }).catch(() => { });
+    }
   } else {
     alert(res.msg);
     return Promise.reject(res.msg);

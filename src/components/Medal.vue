@@ -21,7 +21,7 @@
           />
         </c-row>
         <div class="medal__body" pa25>
-          <slot name="content">123</slot>
+          <slot name="body"></slot>
         </div>
         <div class="medal__footer" bg-j>
           <template v-if="btnType == 3">
@@ -120,6 +120,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 999;
   @include e(mask) {
     @include dimensions(100%);
     background: rgba($color: #000000, $alpha: 0.3);

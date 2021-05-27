@@ -27,7 +27,9 @@ import Carousel from "@/components/Carousel.vue";
 import Ads from "@/components/HomeAds.vue";
 import Banner from "@/components/HomeBanner.vue";
 import Product from "@/components/HomeProduct.vue";
+import { addCart } from "@/api";
 import Service from "@/components/HomeService.vue";
+import { mapActions } from "vuex";
 
 export default {
   components: { Carousel, Ads, Banner, Product, Service, Medal },
@@ -127,8 +129,12 @@ export default {
     this.$eventBus.$off("update:showModal");
   },
   methods: {
-    handleCommitCard() {
-      console.log('??',this.addCartId);
+    ...mapActions(["getCartCount"]),
+    async handleCommitCard() {
+      await addCart(this.addCartId).then(() => {
+        this.getCartCount();
+        this.$message.success("购物车添加成功!");
+      });
       this.showModal = false;
     },
     getProductData() {
