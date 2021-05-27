@@ -57,6 +57,7 @@ export default new Vuex.Store({
         res !== undefined && context.dispatch('setUserName', res.username);
       });
     },
+    
   },
   modules: {
   }

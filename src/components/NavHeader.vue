@@ -21,14 +21,19 @@
           <router-link v-if="!userName" :to="{ name: 'login' }"
             >登录</router-link
           >
-          <div v-if="userName" class="login-out" href="javascript:;" @click="loginOut">
+          <div
+            v-if="userName"
+            class="login-out"
+            href="javascript:;"
+            @click="loginOut"
+          >
             退出
           </div>
           <router-link to="">我的订单</router-link>
-          <router-link to="">
+          <router-link :to="{ name: 'order-cart' }">
             <div btn-normal class="nav-header__icon" h-100>
               <c-img-icon src="/imgs/icon-cart-checked.png" mr5></c-img-icon>
-              购物车{{cartCount}}
+              购物车{{ cartCount }}
             </div>
           </router-link>
         </div>
