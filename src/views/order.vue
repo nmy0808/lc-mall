@@ -6,11 +6,13 @@
 </template>
 
 <script>
+
 import NavFooter from "@/components/NavFooter.vue";
 
 export default {
   name: "order",
   components: { NavFooter },
+ 
 };
 </script>
 

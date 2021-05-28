@@ -25,9 +25,13 @@ axios.interceptors.response.use(response => {
       router.push({ name: 'login' }).catch(() => { });
     }
   } else {
-    alert(res.msg);
+    this.$message.error(res.msg);
     return Promise.reject(res.msg);
   }
+}, error => {
+  let res = error.response;
+  Vue.prototype.$message.error(res.data.message);
+  return Promise.reject(error);
 })
 Vue.use(VueAxios, axios);
 Vue.use(VueCookie);

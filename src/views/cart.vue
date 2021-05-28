@@ -73,6 +73,9 @@
       <c-row type="flex" class="order-item">
         <c-col>共{{ prodSumNum }}件商品, 已选择{{ prodCheckedNum }}件</c-col>
         <c-col>总价格{{ cartTotalPrice }}</c-col>
+        <c-col btn-normal :span="4">
+          <router-link :to="{ name: 'order-confirm' }">去结算</router-link>
+        </c-col>
       </c-row>
     </c-row>
   </div>

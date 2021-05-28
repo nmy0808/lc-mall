@@ -137,6 +137,7 @@ export default {
     height: 60px;
   }
   @include e(body) {
+      
   }
   @include e(footer) {
     @include dimensions(100%, 52px);
