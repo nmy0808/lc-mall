@@ -81,9 +81,16 @@ function findOrderById(shippingId) {
 function findOrderInfoById(orderId) {
   return Vue.prototype.axios.get("/orders/" + orderId);
 }
+// 订单列表
+function getOrders(pageNum = 1 ,pageSize = 10 ) {
+  return Vue.prototype.axios.get("/orders", {
+    pageSize,
+    pageNum
+  });
+}
 // 支付
 function pay({ orderId, orderName, amount, payType }) {
-  return Vue.prototype.axios.post("/pay" ,{ orderId, orderName, amount, payType });
+  return Vue.prototype.axios.post("/pay", { orderId, orderName, amount, payType });
 }
 export {
   getCartCount,
@@ -102,5 +109,6 @@ export {
   addOrder,
   findOrderById,
   findOrderInfoById,
+  getOrders,
   pay,
 }

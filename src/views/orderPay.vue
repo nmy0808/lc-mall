@@ -75,7 +75,6 @@ export default {
   methods: {
     renderOrderInfo() {
       findOrderInfoById(this.$route.query.orderNo).then((res) => {
-        console.log(res);
         this.shippingVo = res.shippingVo;
         this.orderItemVoList = res.orderItemVoList;
         this.payment = res.payment;
