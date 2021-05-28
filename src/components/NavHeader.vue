@@ -1,237 +1,318 @@
 <template>
-  <div class="nav-header">
-    <div bg-b>
-      <c-row
-        class="nav-header__topbar"
-        fz12
-        h-100
-        container
-        align="middle"
-        type="flex"
-        justify="start"
-      >
-        <div class="nav-header__topbar-left" h-100 display-flex align-center>
-          <router-link to="">小米商城</router-link>
-          <router-link to="">MUI</router-link>
-          <router-link to="">云服务</router-link>
-          <router-link to="">协议规则</router-link>
+  <div class="header">
+    <div class="nav-topbar">
+      <div class="container">
+        <div class="topbar-menu">
+          <a href="javascript:;">LC商城</a>
+          <a href="javascript:;">MUI</a>
+          <a href="javascript:;">云服务</a>
+          <a href="javascript:;">协议规则</a>
         </div>
-        <div class="nav-header__topbar-right" h-100 display-flex align-center>
-          <router-link to="">{{ userName }}</router-link>
-          <router-link v-if="!userName" :to="{ name: 'login' }"
-            >登录</router-link
-          >
-          <div
-            v-if="userName"
-            class="login-out"
-            href="javascript:;"
-            @click="loginOut"
-          >
-            退出
-          </div>
-          <router-link to="">我的订单</router-link>
-          <router-link :to="{ name: 'order-cart' }">
-            <div btn-normal class="nav-header__icon" h-100>
-              <c-img-icon src="/imgs/icon-cart-checked.png" mr5></c-img-icon>
-              购物车{{ cartCount }}
-            </div>
-          </router-link>
+        <div class="topbar-user">
+          <a href="javascript:;" v-if="username">{{username}}</a>
+          <a href="javascript:;" v-if="!username" @click="login">登录</a>
+          <a href="javascript:;" v-if="username" @click="logout">退出</a>
+          <a href="/#/order/list" v-if="username">我的订单</a>
+          <a href="javascript:;" class="my-cart" @click="goToCart"><span class="icon-cart"></span>购物车({{cartCount}})</a>
         </div>
-      </c-row>
+      </div>
     </div>
-    <c-box class="nav-header__body" height="112" vertical="center" container>
-      <c-box class="nav-header__body-logo">
-        <router-link class="nav-header__body-logo__box" :to="{ name: 'home' }">
-          <c-img-icon src="/imgs/mi-logo.png" width="55" height="55" />
-          <c-img-icon src="/imgs/mi-home.png" width="55" height="55" />
-        </router-link>
-      </c-box>
-      <c-box class="nav-header__body-menu" h-100>
-        <div class="nav-header__body-menu__item">
-          <router-link to="#">小米手机</router-link>
-          <c-box class="nav-header__body-menu__item__children" bg-g>
-            <template v-for="item in phoneList">
-              <c-box
-                cursor-pointer
-                class="nav-header__body-menu__item__children__item"
-                :key="item.id"
-                height="220"
-                wrap="wrap"
-                align-content-start
-                horizontal="center"
-              >
-                <router-link :to="{ name: 'product', params: { id: item.id } }">
-                  <c-box height="161" width="161">
-                    <img w-100 :src="item.mainImage" />
-                  </c-box>
-                  <c-box class="info" wrap="wrap" w-100 text-center>
-                    <p w-100 fz12 pt19 pb8>{{ item.name }}</p>
-                    <p w-100 fz12 font-a>{{ item.price | currency }}</p>
-                  </c-box>
-                </router-link>
-              </c-box>
-            </template>
-          </c-box>
+    <div class="nav-header">
+      <div class="container">
+        <div class="header-logo">
+          <a href="/#/index"></a>
         </div>
-        <div class="nav-header__body-menu__item">
-          <router-link to="#">RedMi红米</router-link>
-          <c-box class="nav-header__body-menu__item__children" bg-g
-            >213123213</c-box
-          >
+        <div class="header-menu">
+          <div class="item-menu">
+            <span>LC手机</span>
+            <div class="children">
+              <ul>
+                <li class="product" v-for="(item,index) in phoneList" :key="index">
+                  <a v-bind:href="'/#/product/'+item.id" target="_blank">
+                    <div class="pro-img">
+                      <img v-lazy="item.mainImage" :alt="item.subtitle">
+                    </div>
+                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-price">{{item.price | currency}}</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="item-menu">
+            <span>RedMi红米</span>
+          </div>
+          <div class="item-menu">
+            <span>电视</span>
+            <div class="children">
+              <ul>
+                <li class="product">
+                  <a href="" target="_blank">
+                    <div class="pro-img">
+                      <img v-lazy="'/imgs/nav-img/nav-3-1.jpg'" alt="">
+                    </div>
+                    <div class="pro-name">LC壁画电视 65英寸</div>
+                    <div class="pro-price">6999元</div>
+                  </a>
+                </li>
+                <li class="product">
+                  <a href="" target="_blank">
+                    <div class="pro-img">
+                      <img v-lazy="'/imgs/nav-img/nav-3-2.jpg'" alt="">
+                    </div>
+                    <div class="pro-name">LC全面屏电视E55A</div>
+                    <div class="pro-price">1999元</div>
+                  </a>
+                </li>
+                <li class="product">
+                  <a href="" target="_blank">
+                    <div class="pro-img">
+                      <img v-lazy="'/imgs/nav-img/nav-3-3.png'" alt="">
+                    </div>
+                    <div class="pro-name">LC电视4A 32英寸</div>
+                    <div class="pro-price">699元</div>
+                  </a>
+                </li>
+                <li class="product">
+                  <a href="" target="_blank">
+                    <div class="pro-img">
+                      <img v-lazy="'/imgs/nav-img/nav-3-4.jpg'" alt="">
+                    </div>
+                    <div class="pro-name">LC电视4A 55英寸</div>
+                    <div class="pro-price">1799元</div>
+                  </a>
+                </li>
+                <li class="product">
+                  <a href="" target="_blank">
+                    <div class="pro-img">
+                      <img v-lazy="'/imgs/nav-img/nav-3-5.jpg'" alt="">
+                    </div>
+                    <div class="pro-name">LC电视4A 65英寸</div>
+                    <div class="pro-price">2699元</div>
+                  </a>
+                </li>
+                <li class="product">
+                  <a href="" target="_blank">
+                    <div class="pro-img">
+                      <img v-lazy="'/imgs/nav-img/nav-3-6.png'" alt="">
+                    </div>
+                    <div class="pro-name">查看全部</div>
+                    <div class="pro-price">查看全部</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="nav-header__body-menu__item">
-          <router-link to="#">电视</router-link>
-          <c-box class="nav-header__body-menu__item__children" bg-g
-            >123123</c-box
-          >
+        <div class="header-search">
+          <div class="wrapper">
+            <input type="text" name="keyword">
+            <a href="javascript:;"></a>
+          </div>
         </div>
-      </c-box>
-      <c-box class="nav-header__body-search" border-all>
-        <input type="text" border-right />
-        <c-box
-          vertical="center"
-          horizontal="center"
-          height="52"
-          width="52"
-          cursor-pointer
-        >
-          <router-link to="#">
-            <c-img-icon src="/imgs/icon-search.png" width="18" height="18" />
-          </router-link>
-        </c-box>
-      </c-box>
-    </c-box>
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
-import { mapActions, mapState } from "vuex";
-export default {
-  name: "nav-header",
-  data() {
-    return {
-      phoneList: [],
-    };
-  },
-  computed: {
-    ...mapState(["userName", "cartCount"]),
-  },
-  mounted() {
-    this.axios
-      .get("/products", {
-        params: {
-          categoryId: 100012,
-          pageSize: 14,
-        },
-      })
-      .then((res) => {
-        this.phoneList = res.list.slice(6, 12);
-      });
-  },
-  methods: {
-    ...mapActions(["loginOut"]),
-  },
-  filters: {
-    currency: function (value = 0) {
-      let temp = value;
-      return "¥ " + temp.toFixed(2) + "元";
+  import {mapState} from 'vuex'
+  export default{
+    name:'nav-header',
+    data(){
+      return {
+        phoneList:[]
+      }
     },
-  },
-};
+    computed:{
+      /*username(){
+        return this.$store.state.username;
+      },
+      cartCount(){
+        return this.$store.state.cartCount;
+      }*/
+      ...mapState(['username','cartCount'])
+    },
+    filters:{
+      currency(val){
+        if(!val)return '0.00';
+        return '￥' + val.toFixed(2) + '元';
+      }
+    },
+    mounted(){
+      this.getProductList();
+      let params = this.$route.params;
+      if(params && params.from == 'login'){
+        this.getCartCount();
+      }
+    },
+    methods:{
+      login(){
+        this.$router.push('/login');
+      },
+      getProductList(){
+        this.axios.get('/products',{
+          params:{
+            categoryId:'100012',
+            pageSize:6
+          }
+        }).then((res)=>{
+          this.phoneList = res.list;
+        })
+      },
+      getCartCount(){
+        this.axios.get('/carts/products/sum').then((res=0)=>{
+          this.$store.dispatch('saveCartCount',res);
+        })
+      },
+      logout(){
+        this.axios.post('/user/logout').then(()=>{
+          this.$message.success('退出成功');
+          this.$cookie.set('userId','',{expires:'-1'});
+          this.$store.dispatch('saveUserName','');
+          this.$store.dispatch('saveCartCount','0');
+        })
+      },
+      goToCart(){
+        this.$router.push('/cart');
+      }
+    }
+  }
 </script>
-
-<style lang="scss" scoped>
-@include b(nav-header) {
-  @include e(topbar) {
-    height: 39px;
-    a,
-    .login-out {
-      line-height: 39px;
-      margin-right: 17px;
-      color: $colorD;
-      display: inline-block;
-      cursor: pointer;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-  @include e(topbar-left) {
-    margin-right: auto;
-  }
-  @include e(body) {
-    position: relative;
-  }
-  @include e(body-logo) {
-    margin-right: 209px;
-    @include dimensions(55px);
-    background: $colorA;
-    overflow: hidden;
-    @include e(box) {
-      display: flex;
-      @include dimensions(110px, 100%);
-      transition: all 0.3s;
-      &:hover {
-        transform: translateX(-55px);
-      }
-      a {
-        flex-shrink: 0;
-      }
-    }
-  }
-  @include e(body-menu) {
-    font-size: 16px;
-    font-weight: bold;
-    @include e(item) {
-      display: inline-block;
-      margin-right: 20px;
-      height: 100%;
-      line-height: 112px;
-      user-select: none;
-      &:hover {
-        & > a {
-          color: $colorA;
+<style lang="scss">
+  @import './../assets/scss/base.scss';
+  @import './../assets/scss/mixin.scss';
+  @import './../assets/scss/config.scss';
+  .header{
+    .nav-topbar{
+      height:39px;
+      line-height:39px;
+      background-color:#333333;
+      color:#B0B0B0;
+      .container{
+        @include flex();
+        a{
+          display:inline-block;
+          color:#B0B0B0;
+          margin-right:17px;
         }
-        .nav-header__body-menu__item__children {
-          padding-top: 10px;
-          box-sizing: border-box;
-          height: 250px;
-          transition: height 0.3s;
-          border: $border-base;
+        .my-cart{
+          width:110px;
+          background-color:#FF6600;
+          text-align:center;
+          color:#ffffff;
+          margin-right:0;
+          .icon-cart{
+            @include bgImg(16px,12px,'/imgs/icon-cart-checked.png');
+            margin-right:4px;
+          }
         }
       }
-      @include e(children) {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 112px;
-        z-index: 12;
-        height: 0;
-        overflow: hidden;
-        box-shadow: 0px 7px 6px 0px rgb(0 0 0 / 11%);
-        background: white;
-        @include e(item) {
-          position: relative;
-          width: calc(1226px / 6);
-          &:not(:last-child):after {
-            content: "";
-            position: absolute;
-            top: 12%;
-            right: 0;
-            height: 50%;
-            width: 1px;
-            background: $colorH;
+    }
+    .nav-header{
+      .container{
+        position:relative;
+        height:112px;
+        @include flex();
+        .header-menu{
+          display:inline-block;
+          width:643px;
+          padding-left:209px;
+          .item-menu{
+            display:inline-block;
+            color:#333333;
+            font-weight:bold;
+            font-size:16px;
+            line-height:112px;
+            margin-right:20px;
+            span{
+              cursor:pointer;
+            }
+            &:hover{
+              color:$colorA;
+              .children{
+                height:220px;
+                opacity:1;
+              }
+            }
+            .children{
+              position:absolute;
+              top:112px;
+              left:0;
+              width:1226px;
+              height:0;
+              opacity:0;
+              overflow:hidden;
+              border-top:1px solid #E5E5E5;
+              box-shadow:0px 7px 6px 0px rgba(0, 0, 0, 0.11);
+              z-index: 10;
+              transition:all .5s;
+              background-color: #ffffff;
+              .product{
+                position:relative;
+                float:left;
+                width:16.6%;
+                height:220px;
+                font-size:12px;
+                line-height:12px;
+                text-align: center;
+                a{
+                  display:inline-block;
+                }
+                img{
+                  width:auto;
+                  height:111px;
+                  margin-top:26px;
+                }
+                .pro-img{
+                  height:137px;
+                }
+                .pro-name{
+                  font-weight:bold;
+                  margin-top:19px;
+                  margin-bottom:8px;
+                  color:$colorB;
+                }
+                .pro-price{
+                  color:$colorA;
+                }
+                &:before{
+                  content:' ';
+                  position:absolute;
+                  top:28px;
+                  right:0;
+                  border-left:1px solid $colorF;
+                  height:100px;
+                  width:1px;
+                }
+                &:last-child:before{
+                  display:none;
+                }
+              }
+            }
+          }
+        }
+        .header-search{
+          width:319px;
+          .wrapper{
+            height:50px;
+            border:1px solid #E0E0E0;
+            display:flex;
+            align-items:center;
+            input{
+              border:none;
+              box-sizing: border-box;
+              border-right:1px solid #E0E0E0;
+              width:264px;
+              height:50px;
+              padding-left:14px;
+            }
+            a{
+              @include bgImg(18px,18px,'/imgs/icon-search.png');
+              margin-left:17px;
+            }
           }
         }
       }
     }
   }
-  @include e(body-search) {
-    margin-left: auto;
-    input {
-      @include dimensions(264px, 52px);
-      padding-left: 1em;
-    }
-  }
-}
 </style>

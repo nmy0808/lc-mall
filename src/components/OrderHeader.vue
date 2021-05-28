@@ -1,53 +1,62 @@
 <template>
-  <div class="order-header" container>
-    <c-box class="nav-header__body-logo">
-      <router-link class="nav-header__body-logo__box" :to="{ name: 'home' }">
-        <c-img-icon src="/imgs/mi-logo.png" width="55" height="55" />
-        <c-img-icon src="/imgs/mi-home.png" width="55" height="55" />
-      </router-link>
-    </c-box>
-    <h2 fz28 pr20>{{ title }}</h2>
-    <div fz14 class="order-subtitle">{{ subTitle }}</div>
-    <div>{{$store.state.userName}}</div>
+  <div class="order-header">
+    <div class="container clearfix">
+      <div class="header-logo">
+        <a href="/#/index"></a>
+      </div>
+      <div class="title">
+        <h2>{{title}}<slot name="tip"></slot></h2>
+      </div>
+      <div class="username">
+        <a href="javascript:;">{{username}}</a>
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
-export default {
-  name: "order-header",
-  props: {
-    title: String,
-    subTitle: String,
-  },
-};
+  import {mapState} from 'vuex'
+  export default{
+    name:'order-header',
+    props:{
+      title:String
+    },
+    computed:{
+      ...mapState(['username'])
+    },
+  }
 </script>
-
-<style lang="scss" scoped>
-@include b(order-header) {
-  height: 117px;
-  display: flex;
-  align-items: center;
-}
-@include b(nav-header) {
-  @include e(body-logo) {
-    margin-right: 39px;
-    @include dimensions(55px);
-    background: $colorA;
-    overflow: hidden;
-    @include e(box) {
-      display: flex;
-      @include dimensions(110px, 100%);
-      transition: all 0.3s;
-      &:hover {
-        transform: translateX(-55px);
+<style lang="scss">
+  .order-header{
+    padding:30px 0;
+    border-bottom:2px solid #FF6600;
+    .header-logo{
+      float:left;
+    }
+    .title,.username{
+      display:inline-block;
+      height:55px;
+      line-height:55px;
+    }
+    .title{
+      float:left;
+      margin-left:54px;
+      h2{
+        font-size:28px;
+        color:#333333;
       }
-      a {
-        flex-shrink: 0;
+      span{
+        font-size:14px;
+        margin-left:17px;
+        color:#999999;
+        font-weight:200;
+      }
+    }
+    .username{
+      float:right;
+      a{
+        color:#666666;
+        font-size:16px;
       }
     }
   }
-}
-.order-subtitle{
-  margin-right: auto;
-}
 </style>
